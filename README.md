@@ -1,0 +1,1 @@
+This is the repository that I'm using to test and produce material for CoderDojo Linköping.
