@@ -39,7 +39,7 @@ def main():
 
     while True:
         run_game(display_surf, fps_clock)
-        show_game_over_screen(display_surf, pygame.font.Font("freesansbold.ttf", 18))
+        show_game_over_screen(display_surf)
 
 
 def run_game(display_surf, fps_clock):
@@ -206,8 +206,9 @@ def is_point(ball):
         return False
 
 
-def show_game_over_screen(display_surf, basic_font):
+def show_game_over_screen(display_surf):
     """ Shows the game over screen over the game board. """
+    font = pygame.font.Font("freesansbold.ttf", 18)
     game_over_font = pygame.font.Font("freesansbold.ttf", 150)
     game_surf = game_over_font.render('Game', True, WHITE)
     over_surf = game_over_font.render('Over', True, WHITE)
@@ -218,7 +219,7 @@ def show_game_over_screen(display_surf, basic_font):
 
     display_surf.blit(game_surf, game_rect)
     display_surf.blit(over_surf, over_rect)
-    draw_press_key_msg(display_surf, basic_font)
+    draw_press_key_msg(display_surf, font)
     pygame.display.update()
     pygame.time.wait(500)
     check_for_key_press()  # clear out any key presses in the event queue
