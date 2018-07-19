@@ -37,6 +37,24 @@
     showtabs=false,                  
     tabsize=4
 }
+\lstdefinestyle{mystyle_numbers}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4
+}
 
 \lstset{style=mystyle}
 
@@ -95,19 +113,22 @@ def main():
     pygame.display.set_caption("Pong")
 
     while True:
-        run_game(display_surf, fps_clock)
+        # Koden dar spelet ska koras
 \end{lstlisting}
-display\_surf är här det som vi ska använda för att måla vår spelplan på. pygame.display.set\_caption(''Pong'') är det som gör att det kommer stå Pong på vårt fönster. Där det står while True: är där vår loop för att styra spelet är, run\_game(display\_surf, fps\_clock) (som vi kommer börja skriva på snart) kommer köra ett helt spel av Pong. När den är klar kommer ett nytt spel att börja (eftersom den här loopen är en evighetsloop).\\
+display\_surf är här det som vi ska använda för att måla vår spelplan på. pygame.display.set\_caption(''Pong'') är det som gör att det kommer stå Pong på vårt fönster. Där det står while True: är där vår loop för att styra spelet är, (som vi kommer börja skriva på snart) den loopen kommer köra ett helt spel av Pong. När den är klar kommer ett nytt spel att börja (eftersom den här loopen är en evighetsloop).\\
 \\
-Nu kan vi börja skriva på funktionen run\_game(display\_surf, fps\_clock) som faktiskt ska köra en hel omgång av Pong. Till en början ska vi se till att visa en bakgrund, och i Pong är den ju svart. Vi skriver alltså en funktion som ser ut så här.
+Nu kan vi börja skriva på funktionen run\_game(display\_surf, fps\_clock) som faktiskt ska köra en hel omgång av Pong, det är här vi ska skriva allt som gör att spelet fungerar. Till en början ska vi se till att visa en bakgrund, och i Pong är den ju svart. Vi skriver alltså en funktion som ser ut så här.
 \begin{lstlisting}[language=Python]
 def run_game(display_surf, fps_clock):
     while True:  # main game loop
         display_surf.fill(BLACK)
         fps_clock.tick(FPS)
 \end{lstlisting}
-Vi kan då se att vi även här använder en evighetsloop, men där varje omgång i loopen inte beskriver ett helt spel men istället en bild av spelet. fps\_clock.tick(FPS) är den raden kod som gör att precis 60 bilder per sekund ska visas, utan den skulle spelet gå jättesnabbt. display\_surf.fill(BLACK) är den raden kod som gör att vi faktiskt ritar upp en svart bakgrund, eller rättare sagt fyller hela skärmen med färgen svart.\\
-\\
+Vi kan då se att vi även här använder en evighetsloop, men där varje omgång i loopen inte beskriver ett helt spel men istället en bild av spelet. fps\_clock.tick(FPS) är den raden kod som gör att precis 60 bilder per sekund ska visas, utan den skulle spelet gå jättesnabbt. display\_surf.fill(BLACK) är den raden kod som gör att vi faktiskt ritar upp en svart bakgrund, eller rättare sagt fyller hela skärmen med färgen svart. För att köra den här koden måste den läggas till i main(), inuti evighetsloopen alltså.
+\begin{lstlisting}[language=Python]
+	while True:
+		run_game(display_surf, fps_clock)
+\end{lstlisting}
 Innan vi kan starta spelet är det endast en till kodsnutt som behöver läggas till.
 \begin{lstlisting}[language=Python]
 if __name__ == "__main__":
@@ -115,11 +136,45 @@ if __name__ == "__main__":
 \end{lstlisting}
 Den här kodsnutten ska alltid ligga längst ner i Python-filen, den bestämmer vilken funktion som ska köras när programmet startar. Eftersom vi har sagt att vår main() funktion ska startas först skriver vi in den.\\
 \\
-Om du startar filen nu kommer du kunna se svart fönster med titeln Pong, coolt eller hur!
+Om du startar filen nu kommer du kunna se svart fönster med titeln Pong, coolt eller hur!\\
+\\
+Om den inte visar det kan du kolla på följande kodsnutt, vilket är hur din fil kan se ut för att det ska fungera.
+\begin{lstlisting}[language=Python, style=mystyle_numbers]
+import pygame
+import sys
+from pygame.locals import *
+
+WINDOW_WIDTH = 640
+WINDOW_HEIGHT = 480
+FPS = 60
+
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+
+
+def main():
+	pygame.init()
+	fps_clock = pygame.time.Clock()
+	display_surf = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+	pygame.display.set_caption("Pong")
+	
+	while True:
+		run_game(display_surf, fps_clock)
+
+		
+def run_game(display_surf, fps_clock):
+	while True: # main game loop
+		display_surf.fill(BLACK)
+		fps_clock.tick(FPS)
+		
+
+if __name__ == "__main__":
+	main()
+\end{lstlisting}
 
 
 \newpage
-\lstinputlisting[language=Python]{main.py}
+\lstinputlisting[language=Python, style=mystyle_numbers]{main.py}
 
 
 \end{document}
