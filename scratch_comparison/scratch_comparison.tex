@@ -109,38 +109,153 @@ for i in range(10):
 \end{frame}
 
 \begin{frame}[fragile]
+	\frametitle{Matefunktioner}
+	
+	\begin{columns}[c] % the "c" option specifies center vertical alignment
+		\column{.5\textwidth} % column designated by a command
+		\begin{center}
+			\includegraphics[width=0.7\textwidth]{blocks/oparations.png}
+		\end{center}
+		\column{.5\textwidth}
+		\begin{lstlisting}[language=Python]
+1 + 2
+7 - 4
+2 * 3
+10 / 5
+		\end{lstlisting}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{mer matterfunktioner}
+	
+	\begin{columns}[c] % the "c" option specifies center vertical alignment
+		\column{.5\textwidth} % column designated by a command
+		\begin{center}
+			\includegraphics[width=0.5\textwidth]{blocks/math_oper.png}
+		\end{center}
+		\column{.5\textwidth}
+		\begin{lstlisting}[language=Python]
+math.sqrt(9)
+
+math.abs(9)
+
+math.sin(9)
+
+4 % 17
+		\end{lstlisting}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{sanningsfunktioner}
+	
+	\begin{columns}[c] % the "c" option specifies center vertical alignment
+		\column{.45\textwidth} % column designated by a command
+		\begin{center}
+			\includegraphics[width=0.3\textwidth]{blocks/boolean.png}
+		\end{center}
+		\begin{center}
+			\includegraphics[width=0.6\textwidth]{blocks/boolean_2.png}
+		\end{center}
+		\column{.55\textwidth}
+		\begin{lstlisting}[language=Python]
+8 = = 5 # Falskt
+8 < 5 # Falskt
+8 > 5 # Sant
+		\end{lstlisting}
+		\begin{lstlisting}[language=Python]
+1 = = 1 or 1 = = 2 # Sant
+1 = = 1 and 1 = = 2 # Falskt
+not 1 = = 2 # Sant
+		\end{lstlisting}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{if satser}
+	
+	\begin{columns}[c] % the "c" option specifies center vertical alignment
+		\column{.5\textwidth} % column designated by a command
+		\begin{center}
+			\includegraphics[width=0.7\textwidth]{blocks/if_sats.png}
+		\end{center}
+		\column{.5\textwidth}
+		\begin{lstlisting}[language=Python]
+if 3 = = 3:
+	print("Hello!")
+
+
+
+if 3 = = 6:
+	print("Hello!")
+else:
+	print("Bye!")
+		\end{lstlisting}
+	\end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
 	\frametitle{loopar}
 
 	\begin{columns}[c] % the "c" option specifies center vertical alignment
     	\column{.5\textwidth} % column designated by a command
     	\begin{center}
-     		\includegraphics[width=0.45\textwidth]{blocks/while.png}
+     		\includegraphics[width=0.7\textwidth]{blocks/while_loop.png}
      	\end{center}
      	\begin{center}
-     	     \includegraphics[width=0.45\textwidth]{blocks/while_true.png}
+     	     \includegraphics[width=0.4\textwidth]{blocks/While_true.png}
      	\end{center}
      	\begin{center}
-     	     \includegraphics[width=0.45\textwidth]{blocks/for_10.png}
+     	     \includegraphics[width=0.4\textwidth]{blocks/for_loop.png}
      	\end{center}
 
     	\column{.5\textwidth}
 		\begin{lstlisting}[language=Python]
-			while():
-    			#code
+while(number < 10):
+	print("Hello!")
+	number += 1
 		\end{lstlisting}
 		\
 		
 		\begin{lstlisting}[language=Python]
-			while(True):
-		    	#code
+while(True):
+   	print("Hello!")
 		\end{lstlisting}
 		\
 		
 		\begin{lstlisting}[language=Python]
-			for i in range(10):
-			    print("Hello!")
+for i in range(10):
+    print("Hello!")
 		\end{lstlisting}
     \end{columns}
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Vad är skillanden?}
+	
+	\begin{columns}[c] % the "c" option specifies center vertical alignment
+		\column{.5\textwidth} % column designated by a command
+		\begin{center}
+			\includegraphics[width=0.6\textwidth]{blocks/random.png}
+		\end{center}
+		\begin{center}
+			\includegraphics[width=0.6\textwidth]{blocks/sleep.png}
+		\end{center}
+		\begin{center}
+			\includegraphics[width=0.6\textwidth]{blocks/days_since_2000.png}
+		\end{center}
+		\column{.5\textwidth}
+		\begin{lstlisting}[language=Python]
+
+		\end{lstlisting}
+		\begin{lstlisting}[language=Python]
+time.sleep(1)		
+		\end{lstlisting}
+		\begin{lstlisting}[language=Python]
+		
+		\end{lstlisting}
+	\end{columns}
 \end{frame}
 
 
