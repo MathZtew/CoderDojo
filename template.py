@@ -28,10 +28,20 @@ Game loop, one game until game over
 """
 def run_game(display_surf, fps_clock):
     # main game loop
-    while True:  
+    while True:
+        display_surf.fill(BLACK)
 
         # Handle exit event, so that game can exit
         for event in pygame.event.get():
             if event.type == QUIT:
                 pygame.quit()
                 sys.exit()
+
+        pygame.display.update()
+        fps_clock.tick(FPS)
+
+
+
+if __name__ == "__main__":
+    main()
+                
