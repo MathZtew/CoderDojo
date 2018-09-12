@@ -1,12 +1,12 @@
 
 import pygame
 import sys
-import math
+from math import cos, sin, radians
 import time
 import random
 from pygame.locals import *
 
-FPS = 60
+FPS = 10
 WINDOW_WIDTH = 640
 WINDOW_HEIGHT = 480
 
@@ -32,11 +32,11 @@ paddle = {'x': WINDOW_WIDTH/2 - PADDLE_STARTING_WIDTH/2,
           'speed': PADDLE_STARTING_SPEED}
 
 ball = {'x': WINDOW_WIDTH/2,
-        'y': WINDOW_HEIGHT/2,
+        'y': 400,
         'width': 4,
         'height': 4,
-        'speed': 4,
-        'dir': 90
+        'speed': 5,
+        'dir': 300
         }
 
 
@@ -53,9 +53,7 @@ def main():
 
 def run_game(display_surf, fps_clock):
     """ Runs an entire instance of the game, returns when someone wins. """
-    global paddle
-    global ball
-
+    
     while True:  # main game loop
         display_surf.fill(BG_COLOR)
 
@@ -64,8 +62,8 @@ def run_game(display_surf, fps_clock):
                 pygame.quit()
                 sys.exit()
 
-        paddle = move_paddle()
-        ball = move_ball()
+        move_paddle()
+        move_ball()
 
         # create rectangles for easier collision detection
         paddle_rect = pygame.Rect(paddle[X], paddle[Y], paddle[WIDTH], paddle[HEIGHT])
@@ -91,7 +89,6 @@ def draw_ball(display_surf, ball_rect):
     pygame.draw.rect(display_surf,WHITE,ball_rect)
 
 def move_paddle():
-    global paddle
     """
     Moves the paddles according to the buttons pressed.
     A and D moves the left paddle, and UP and DOWN moves
@@ -104,44 +101,104 @@ def move_paddle():
     elif keys[K_d]:
         new_paddle_y = paddle[X] + paddle[SPEED]
         paddle[X] = new_paddle_y if new_paddle_y < WINDOW_WIDTH - paddle[WIDTH] else WINDOW_WIDTH - paddle[WIDTH]
-    return paddle
 
 
 def move_ball():
-    global ball
+    
+    new_ball_x = ball[X] + cos(radians(ball[DIR])) * ball[SPEED]
+       
+    
+    new_ball_y = ball[Y] - sin(radians(ball[DIR])) * ball[SPEED]
+    check_collision(new_ball_x, new_ball_y, True) 
+    check_collision(new_ball_x, new_ball_y, False)
+    
 
-    new_ball_x = ball[X] + math.cos(math.radians(ball[DIR])) * ball[SPEED]
-    new_ball_y = ball[Y] - math.sin(math.radians(ball[DIR])) * ball[SPEED]
-    x_multi = -1 if math.cos(math.radians(ball[DIR])) < 0 else 1
+def check_border(x, y, vertical):
 
-    ball = check_collition(new_ball_x, new_ball_y)
+    collision = False
 
-    return ball
-
-
-def check_collition(x, y):
-    global ball
-
-    if x > WINDOW_WIDTH - ball[WIDTH]:
-        ball[X] = WINDOW_WIDTH - ball[WIDTH]
-    elif x < 0:
-        ball[X] = 0
+    if vertical:
+       if x > WINDOW_WIDTH - ball[WIDTH]:
+           ball[X] = WINDOW_WIDTH - ball[WIDTH]
+           bounce(vertical)
+           collision = True
+       elif x < 0:
+           ball[X] = 0
+           bounce(True)
+           collision = True
+       else:
+           ball[X] = x 
     else:
-        ball[X] = x
+        if y > WINDOW_HEIGHT - ball[HEIGHT]:
+            ball[Y] = WINDOW_HEIGHT - ball[HEIGHT]
+            bounce(False)
+            collision = True
+            # loose ball
+        elif y < 0:
+            ball[Y] = 0
+            bounce(False)
+            collision = True
+        else:
+            ball[Y] = y
 
-    if y > WINDOW_HEIGHT - ball[HEIGHT]:
-        ball[Y] = WINDOW_HEIGHT - ball[HEIGHT]  # loose ball
-    elif y < 0:
-        ball[Y] = 0
-    else:
-        ball[Y] = y
-
-    return ball
+    return collision
 
 
-def handle_collisin(ball, )
+def check_paddle(x, y, vertical):
+
+    if check_rect_collision(x, y, paddle):
+        
+        if vertical:
+            if paddle[X] + paddle[WIDTH]/2 > x:
+                ball[X] = paddle[X] - ball[WIDTH]
+            else:
+                ball[X] = paddle[X] + paddle[WIDTH]
+        else:
+            if paddle[Y] + paddle[HEIGHT]/2 > y:
+                ball[Y] = paddle[Y] - ball[HEIGHT]
+            else:
+                ball[Y] = paddle[Y] + paddle[HEIGHT]
+        bounce(vertical)
+        return True
+    return False
+        
+
+def check_rect_collision(x, y, rect):
+
+    a = x < rect[X] + rect[WIDTH]
+    b = x + ball[WIDTH] > rect[X]
+    c = y < rect[Y] + rect[HEIGHT]
+    d = y + ball[HEIGHT] > rect[Y]
+    
+    return a and b and c and d
 
 
+def check_collision(x, y, vertical):
+    
+    if check_border(x, y, vertical):
+        w = 0
+    elif check_paddle(x, y, vertical):
+        w = 0
+
+
+def bounce(virtical):
+    if virtical :
+        ball[DIR] = (180 - ball[DIR]) % 360
+    elif not virtical:
+        ball[DIR] = 360 - ball[DIR]
+
+
+#def correct_ball_placement(x, y, vertical)
+
+
+
+
+
+
+
+
+
+        
 def show_game_over_screen(display_surf):
     """ Shows the game over screen over the game board. """
     font = pygame.font.Font("freesansbold.ttf", 18)
