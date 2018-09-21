@@ -5,6 +5,7 @@ Based on:
           http://inverntwithpython.com/pygame
           Creative Commons BY-NC-SA 3.0 US
 
+This game is licensed under Creative Commons BY-NC-SA 3.0 US
 modifications and rewritten by:
 Mattias Salo salo.mattias@gmail.com
 """
