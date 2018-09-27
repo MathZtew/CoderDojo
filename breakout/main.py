@@ -6,7 +6,7 @@ import time
 import random
 from pygame.locals import *
 
-FPS = 10
+FPS = 30
 WINDOW_WIDTH = 640
 WINDOW_HEIGHT = 480
 
@@ -191,44 +191,20 @@ def bounce(virtical):
 #def correct_ball_placement(x, y, vertical)
 
 
-
-
-
-
-
-
-
-        
 def show_game_over_screen(display_surf):
-    """ Shows the game over screen over the game board. """
-    font = pygame.font.Font("freesansbold.ttf", 18)
-    game_over_font = pygame.font.Font("freesansbold.ttf", 150)
-    game_surf = game_over_font.render('Game', True, WHITE)
-    over_surf = game_over_font.render('Over', True, WHITE)
-    game_rect = game_surf.get_rect()
-    over_rect = over_surf.get_rect()
-    game_rect.midtop = (WINDOW_WIDTH / 2, 10)
-    over_rect.midtop = (WINDOW_WIDTH / 2, game_rect.height + 10 + 25)
-
-    display_surf.blit(game_surf, game_rect)
-    display_surf.blit(over_surf, over_rect)
-    draw_press_key_msg(display_surf, font)
+    gameover_surf = pygame.font.Font("freesansbold.ttf", 30).render('Game Over', True, WHITE)
+    gameover_rect = gameover_surf.get_rect()
+    gameover_rect.topleft = (WINDOW_WIDTH / 2 - gameover_rect.width / 2, WINDOW_HEIGHT / 2 - gameover_rect.height / 2)
+    display_surf.blit(gameover_surf, gameover_rect)
     pygame.display.update()
-    pygame.time.wait(500)
-    check_for_key_press()  # clear out any key presses in the event queue
-
-    while True:
-        if check_for_key_press():
-            pygame.event.get()  # clear event queue
-            return
-
-
-def draw_press_key_msg(display_surf, basic_font):
-    """ Shows a message to the player to press a key. """
-    press_key_surf = basic_font.render('Press a key to play', True, WHITE)
-    press_key_rect = press_key_surf.get_rect()
-    press_key_rect.topleft = (WINDOW_WIDTH - 200, WINDOW_HEIGHT - 30)
-    display_surf.blit(press_key_surf, press_key_rect)
+    pygame.event.get()  # Clear the event queue
+    while True:  # Wait for a keypress
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == KEYDOWN:
+                return
 
 
 if __name__ == "__main__":
