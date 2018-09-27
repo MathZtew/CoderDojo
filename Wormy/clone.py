@@ -91,8 +91,6 @@ def run_game(display_surf, fps_clock):
         else:
             frame += 1
 
-
-
         # This should be on the end of the loop
         pygame.display.update()
         fps_clock.tick(FPS)
@@ -152,12 +150,16 @@ def is_worm_hit(snake):
 
 
 def draw_game(display_surf, snake, apple, score):
+    # Draw background
     display_surf.fill(BLACK)
+    # Draw apple
     apple_rect = pygame.Rect(apple["x"] * BOX_SIZE, apple["y"] * BOX_SIZE, BOX_SIZE, BOX_SIZE)
     pygame.draw.rect(display_surf, RED, apple_rect)
+    # Draw snake
     for body in snake:
         snake_rect = pygame.Rect(body["x"] * BOX_SIZE, body["y"] * BOX_SIZE, BOX_SIZE, BOX_SIZE)
         pygame.draw.rect(display_surf, GREEN, snake_rect)
+    # Draw score
     score_surf = pygame.font.Font("freesansbold.ttf", 18).render('Score: %s' % score, True, WHITE)
     score_rect = score_surf.get_rect()
     score_rect.topleft = (0, 0)
@@ -170,8 +172,8 @@ def show_game_over(display_surf):
     gameover_rect.topleft = (WINDOW_WIDTH / 2 - gameover_rect.width / 2, WINDOW_HEIGHT / 2 - gameover_rect.height / 2)
     display_surf.blit(gameover_surf, gameover_rect)
     pygame.display.update()
-    pygame.event.get()
-    while True:
+    pygame.event.get()  # Clear the event queue
+    while True:  # Wait for a keypress
         for event in pygame.event.get():
             if event.type == QUIT:
                 pygame.quit()
